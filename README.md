@@ -1,16 +1,20 @@
-# React + Vite
+#React - Vite Todo App
+A simple todo application built with React.js and Vite. This app allows you to manage your daily tasks using User Interface.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##Features
+*Add Cards: Easily create new todo cards by providing a title and description.
+*Delete Cards: Remove unwanted cards from the list with a single click.
 
-Currently, two official plugins are available:
+##Technologies Used#
+*React.js: A JavaScript library for building user interfaces.
+*Vite: A fast and minimalist build tool for modern web development.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##Getting Started#
+*To get a local copy of the project up and running, follow these steps:
+*Clone the repository: 'https://github.com/Theera12/Todolist-01'
+*Navigate to the project directory: cd your-repo
+*Install the dependencies: npm install
+*Start the development server: npm run dev
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+##Contribution
+Feel free to open issues or submit pull requests for improvements or new features.
