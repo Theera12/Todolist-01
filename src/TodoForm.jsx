@@ -1,24 +1,30 @@
 import './App.css';
 import { useRef } from 'react';
+import { useState } from 'react';
 
 function TodoForm({ onAddTodo }) {
-  //Ref Hooks used to change the focus to input field
-  const todoTitleInput = useRef('');
+  const [workingTodoTitle, setWorkingTodoTitle] = useState([]); // State used for controlled form
+  const todoTitleInput = useRef(''); //Ref Hooks used to change the focus to input field
+
   //handle function triggered when form is submitted
   function handleAddTodo(event) {
     event.preventDefault();
-    //console.dir(event.target.title.value);
-    const title = event.target.title.value;
-    onAddTodo(title);
-    event.target.title.value = '';
-    //To return the focus from submit to input field
-    todoTitleInput.current.focus();
+    onAddTodo(workingTodoTitle);
+    setWorkingTodoTitle(''); //reset the form to empty
+    todoTitleInput.current.focus(); //To return the focus from submit to input field
   }
   return (
+    //Controlled Form
     <form onSubmit={handleAddTodo}>
       <label htmlFor="todoTitle">Todo</label>
-      <input id="todoTitle" name="title" ref={todoTitleInput}></input>
-      <button>Add Todo</button>
+      <input
+        id="todoTitle"
+        name="title"
+        ref={todoTitleInput}
+        value={workingTodoTitle}
+        onChange={(event) => setWorkingTodoTitle(event.target.value)}
+      />
+      <button disabled={workingTodoTitle == '' && true}>Add Todo</button>
     </form>
   );
 }
