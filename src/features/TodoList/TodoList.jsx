@@ -1,9 +1,9 @@
-import './App.css';
-import TodoListItem from './TodoListItem.jsx';
+import TodoListItem from './TodoListItem';
 
-function TodoList({ todoList, onCompleteTodo }) {
+function TodoList({ todoList, onCompleteTodo, onUpdateTodo }) {
   //filter out the todos if Completed
   const filteredTodoList = todoList.filter((todo) => !todo.isCompleted);
+
   return (
     <>
       {filteredTodoList.length === 0 ? (
@@ -17,6 +17,7 @@ function TodoList({ todoList, onCompleteTodo }) {
               onCompleteTodo={() => {
                 onCompleteTodo(todo.id);
               }}
+              onUpdateTodo={onUpdateTodo}
             />
           ))}
         </ul>
