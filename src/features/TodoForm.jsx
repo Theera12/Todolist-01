@@ -1,14 +1,19 @@
 import { useRef } from 'react';
 import { useState } from 'react';
 import TextInputWithLabel from '../shared/TextInputWithLabel';
-function TodoForm({ onAddTodo }) {
+function TodoForm({ onAddTodo, isSaving }) {
   const [workingTodoTitle, setWorkingTodoTitle] = useState([]); // State used for controlled form
+
   const todoTitleInput = useRef(''); //Ref Hooks used to change the focus to input field
 
   //handle function triggered when form is submitted
   function handleAddTodo(event) {
     event.preventDefault();
-    onAddTodo(workingTodoTitle);
+    onAddTodo({
+      title: workingTodoTitle,
+      isCompleted: false,
+    });
+    //onAddTodo(workingTodoTitle);
     setWorkingTodoTitle(''); //reset the form to empty
     todoTitleInput.current.focus(); //To return the focus from submit to input field
   }
@@ -23,8 +28,9 @@ function TodoForm({ onAddTodo }) {
         ref={todoTitleInput}
         value={workingTodoTitle}
       />
-
-      <button disabled={workingTodoTitle == '' && true}>Add Todo</button>
+      <button disabled={workingTodoTitle === ''}>
+        {isSaving ? 'Saving...' : 'Add Todo'}
+      </button>
     </form>
   );
 }
