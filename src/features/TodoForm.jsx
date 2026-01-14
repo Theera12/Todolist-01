@@ -28,8 +28,8 @@ function TodoForm({ onAddTodo, isSaving }) {
         ref={todoTitleInput}
         value={workingTodoTitle}
       />
-      <button disabled={workingTodoTitle === ''}>
-        {isSaving ? 'Saving...' : 'Add Todo'}
+      <button style={{ margin: '3px' }} disabled={workingTodoTitle === ''}>
+        {isSaving ? '...' : 'Add'}
       </button>
     </form>
   );

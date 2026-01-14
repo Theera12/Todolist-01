@@ -33,16 +33,24 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
         {isEditing ? (
           <>
             <TextInputWithLabel value={workingTitle} onChange={handleEdit} />
-            <button type="button" onClick={handleCancel}>
-              Cancel
+            <button
+              type="button"
+              onClick={handleCancel}
+              style={{ margin: '2px' }}
+            >
+              X
             </button>
-            <button type="button" onClick={handleUpdate}>
-              Update
+            <button
+              type="button"
+              onClick={handleUpdate}
+              style={{ margin: '2px' }}
+            >
+              OK
             </button>
           </>
         ) : (
           <>
-            <label>
+            <label style={{ margin: '5px' }}>
               <input
                 type="checkbox"
                 id={`checkbox${todo.id}`}
