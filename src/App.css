@@ -21,7 +21,7 @@
   min-height: 300px;
   border-radius: 30px;
   box-sizing: border-box;
-  padding: 30px;
+  padding: 20px;
   box-shadow: 0 40px 20px rgba(54, 67, 0, 0.93);
   background: white;
   font-family: 'Comic Sans MS', 'Lucida Handwriting', cursive;
@@ -32,7 +32,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 10px;
+
   gap: 30px;
 }
 .errormessage {
