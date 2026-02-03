@@ -5,6 +5,47 @@ import { RiSortAlphabetAsc } from 'react-icons/ri';
 import { HiOutlineSortDescending } from 'react-icons/hi';
 import { RiDeleteBinFill } from 'react-icons/ri';
 import searchicon from '../assets/search.png';
+const Wrapper = styled.div`
+  padding-top: 10px;
+  display: flex;
+
+  justify-content: sapce-between;
+  input {
+    width: 100%;
+    background-image: url(${searchicon});
+    background-repeat: no-repeat;
+    background-position: right center;
+    height: 30px;
+    padding-right: 13px;
+    border: 1px solid grey;
+    border-radius: 10%;
+    font-style: italic;
+  }
+  input:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.94);
+  }
+  input:focus {
+    outline: none;
+  }
+`;
+const StyledForm = styled.form`
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+  select {
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    font-style: italic;
+    color: grey;
+  }
+  select:focus {
+    outline: none;
+  }
+  select:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.94);
+  }
+`;
 function TodosViewForm({
   sortDirection,
   setSortDirection,
@@ -22,47 +63,6 @@ function TodosViewForm({
     };
   }, [localQueryString, setQueryString]);
 
-  const Wrapper = styled.div`
-    padding-top: 10px;
-    display: flex;
-
-    justify-content: sapce-between;
-    input {
-      width: 100%;
-      background-image: url(${searchicon});
-      background-repeat: no-repeat;
-      background-position: right center;
-      height: 30px;
-      padding-right: 13px;
-      border: 1px solid grey;
-      border-radius: 10%;
-      font-style: italic;
-    }
-    input:hover {
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.94);
-    }
-    input:focus {
-      outline: none;
-    }
-  `;
-  const StyledForm = styled.form`
-    margin-top: 5px;
-    display: flex;
-    gap: 10px;
-    select {
-      padding: 10px;
-      border: 1px solid grey;
-      border-radius: 4px;
-      font-style: italic;
-      color: grey;
-    }
-    select:focus {
-      outline: none;
-    }
-    select:hover {
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.94);
-    }
-  `;
   return (
     <>
       <Wrapper>
