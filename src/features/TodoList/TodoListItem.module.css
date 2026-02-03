@@ -1,0 +1,15 @@
+.labels {
+  margin: 10px;
+}
+
+.inputCheckbox[type='checkbox'] {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border: 5px solid rgb(248, 117, 23);
+  border-radius: 30%;
+  cursor: pointer;
+}
+.inputCheckbox[type='checkbox']:hover {
+  border: 7px solid rgb(228, 212, 88);
+}

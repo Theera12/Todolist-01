@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { useState } from 'react';
 import TextInputWithLabel from '../shared/TextInputWithLabel';
+import styled from 'styled-components';
+import { GrAddCircle } from 'react-icons/gr';
 function TodoForm({ onAddTodo, isSaving }) {
   const [workingTodoTitle, setWorkingTodoTitle] = useState([]); // State used for controlled form
 
@@ -17,6 +19,13 @@ function TodoForm({ onAddTodo, isSaving }) {
     setWorkingTodoTitle(''); //reset the form to empty
     todoTitleInput.current.focus(); //To return the focus from submit to input field
   }
+  const StyledButton = styled.button`
+    margin: 0px;
+    border-radius: 0 40% 40% 0;
+    height: 20px;
+    width: 25px;
+    font-style: bold;
+  `;
   return (
     //Controlled Form
 
@@ -28,9 +37,9 @@ function TodoForm({ onAddTodo, isSaving }) {
         ref={todoTitleInput}
         value={workingTodoTitle}
       />
-      <button style={{ margin: '3px' }} disabled={workingTodoTitle === ''}>
-        {isSaving ? '...' : 'Add'}
-      </button>
+      <StyledButton disabled={workingTodoTitle === ''}>
+        {isSaving ? '...' : <GrAddCircle />}
+      </StyledButton>
     </form>
   );
 }

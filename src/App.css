@@ -4,45 +4,27 @@
 }
 .body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background: #5396b0;
-  background: radial-gradient(
+  gap: 10px;
+  /* background: radial-gradient(
     circle,
     rgba(83, 150, 176, 1) 0%,
     rgba(87, 199, 133, 1) 50%,
     rgba(237, 221, 83, 1) 100%
-  );
+  );*/
+  background: url('./assets/backgroundimage.jpg') repeat center;
+  background-size: contain;
 }
-.container {
-  width: 330px;
-  height: max-content;
-  min-height: 300px;
-  border-radius: 30px;
-  box-sizing: border-box;
-  padding: 20px;
-  box-shadow: 0 40px 20px rgba(54, 67, 0, 0.93);
-  background: white;
-  font-family: 'Comic Sans MS', 'Lucida Handwriting', cursive;
-  cursor: pointer;
+img {
+  align-self: flex-start;
+  height: 50px;
+  width: 50px;
 }
-.item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 
-  gap: 30px;
-}
-.errormessage {
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 15px;
-}
 p {
   font-size: 10px;
   color: rgb(234, 6, 6);
@@ -54,7 +36,7 @@ p {
   width: 50%;
 }
 button {
-  background-color: #66ca8c;
+  background-color: #e6893d;
   border: none;
   text-align: center;
   font-size: 13px;
@@ -64,7 +46,8 @@ button {
   transition-duration: 0.4s;
 }
 button:hover {
-  background-color: #085d04;
+  background-color: #c9ad22;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.94);
 }
 button:disabled {
   background-color: #cccccc;
@@ -72,17 +55,8 @@ button:disabled {
   opacity: 1;
   cursor: text;
 }
-ul {
-  list-style-type: none;
-}
-input[type='checkbox'] {
-  appearance: none;
-  width: 10px;
-  height: 10px;
-  border: 5px solid rgb(89, 76, 76);
-  border-radius: 20%;
-  cursor: pointer;
-}
-input[type='checkbox']:hover {
-  border: 7px solid rgb(228, 212, 88);
+a {
+  padding: 10px;
+  color: rgb(212, 163, 77);
+  font-size: 10px;
 }
