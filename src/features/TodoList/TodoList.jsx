@@ -1,5 +1,5 @@
 import TodoListItem from './TodoListItem';
-
+import styles from './TodoList.module.css';
 function TodoList({ todoList, onCompleteTodo, onUpdateTodo, isLoading }) {
   //filter out the todos if Completed
   const filteredTodoList = todoList.filter((todo) => !todo.isCompleted);
@@ -11,7 +11,7 @@ function TodoList({ todoList, onCompleteTodo, onUpdateTodo, isLoading }) {
       ) : filteredTodoList.length === 0 ? (
         <p>Add Todo to get Started...</p>
       ) : (
-        <ul>
+        <ul className={styles.unorderedList}>
           {filteredTodoList.map((todo) => (
             <TodoListItem
               key={todo.id}

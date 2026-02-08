@@ -1,5 +1,8 @@
 import TextInputWithLabel from '../../shared/TextInputWithLabel';
+import styles from './TodoListItem.module.css';
 import { useState, useEffect } from 'react';
+import { TiTick } from 'react-icons/ti';
+import { MdOutlineDeleteOutline } from 'react-icons/md';
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
@@ -33,25 +36,18 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
         {isEditing ? (
           <>
             <TextInputWithLabel value={workingTitle} onChange={handleEdit} />
-            <button
-              type="button"
-              onClick={handleCancel}
-              style={{ margin: '2px' }}
-            >
-              X
+            <button type="button" onClick={handleCancel}>
+              <MdOutlineDeleteOutline />
             </button>
-            <button
-              type="button"
-              onClick={handleUpdate}
-              style={{ margin: '2px' }}
-            >
-              OK
+            <button type="button" onClick={handleUpdate}>
+              <TiTick />
             </button>
           </>
         ) : (
           <>
-            <label style={{ margin: '5px' }}>
+            <label className={styles.labels}>
               <input
+                className={styles.inputCheckbox}
                 type="checkbox"
                 id={`checkbox${todo.id}`}
                 checked={todo.isCompleted}

@@ -3,6 +3,9 @@ import TodoList from './features/TodoList/TodoList';
 import TodoForm from './features/TodoForm';
 import TodosViewForm from './features/TodosViewForm';
 import { useState, useEffect } from 'react';
+import { BiSolidError } from 'react-icons/bi';
+import logo from './assets/logo.png';
+import styles from './App.module.css';
 
 //function add sortField and sortDirection parameters to the url
 function encodeUrl({ sortField, sortDirection, queryString }) {
@@ -185,8 +188,9 @@ function App() {
 
   return (
     <div className="body">
-      <div className="container">
-        <div className="item">
+      <img src={logo}></img>
+      <div className={styles.container}>
+        <div className={styles.item}>
           <h1 className="heading">MY TODOS</h1>
           <TodoForm onAddTodo={addTodo} isSaving={isSaving} />
           <TodoList
@@ -207,15 +211,20 @@ function App() {
             />
           </div>
         </div>
-
         {errorMessage && (
-          <div className="errormessage">
-            <hr className="divider" />
+          <div className={styles.errormessage}>
+            <BiSolidError />
             <p>{errorMessage} : Failed to fetch data..</p>
             <button onClick={() => setErrorMessage('')}>Dismiss</button>
           </div>
         )}
       </div>
+      <footer>
+        <a href="https://icons8.com">Icons From Icons8</a>
+        <a href="https://www.freepik.com/free-vector/elegant-round-shape-modern-background-presentation_149280077.htm#fromView=keyword&page=3&position=0&uuid=02baa1fb-ffef-4bfa-bde7-84e849aa6dc0&query=Background">
+          Image by starline on Freepik
+        </a>
+      </footer>
     </div>
   );
 }

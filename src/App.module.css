@@ -1,0 +1,33 @@
+.container {
+  width: 330px;
+  height: max-content;
+  min-height: 300px;
+  border-radius: 30px;
+  box-sizing: border-box;
+  padding: 20px;
+  box-shadow: 0 40px 20px rgba(54, 67, 0, 0.93);
+  background: white;
+  font-family: 'Comic Sans MS', 'Lucida Handwriting', cursive;
+  cursor: pointer;
+}
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+.errormessage {
+  padding: 10px;
+  height: 80%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  border: solid grey;
+  border-radius: 25px;
+  margin-top: 15px;
+  margin-left: 20px;
+}
