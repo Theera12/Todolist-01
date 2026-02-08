@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { BiSolidError } from 'react-icons/bi';
 import logo from './assets/logo.png';
 import styles from './App.module.css';
-
+import { initialState as todoListInitialState } from './reducers/todos.reducer';
 //function add sortField and sortDirection parameters to the url
 function encodeUrl({ sortField, sortDirection, queryString }) {
   const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
