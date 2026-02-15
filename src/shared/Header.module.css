@@ -1,0 +1,15 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #492a06;
+  background: rgb(235, 235, 239);
+}
+.active {
+  font-weight: bold;
+  color: rgb(196, 28, 28);
+}
+.inactive {
+  font-weight: normal;
+  color: #221302;
+}

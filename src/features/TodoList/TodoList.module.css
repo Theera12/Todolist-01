@@ -16,3 +16,7 @@
 .unorderedList li {
   padding: 2px;
 }
+.paginationControlButton {
+  margin: 5px;
+  padding: 0;
+}

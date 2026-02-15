@@ -1,259 +1,54 @@
 import './App.css';
-import TodoList from './features/TodoList/TodoList';
-import TodoForm from './features/TodoForm';
-import TodosViewForm from './features/TodosViewForm';
-import { useState, useEffect, useReducer } from 'react';
-import { BiSolidError } from 'react-icons/bi';
-import logo from './assets/logo.png';
-import styles from './App.module.css';
-import {
-  initialState as initialTodoState,
-  actions as todoActions,
-  reducer as todosReducer,
-} from './reducers/todos.reducer';
-//function add sortField and sortDirection parameters to the url
-function encodeUrl({ sortField, sortDirection, queryString }) {
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
-  let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
-  let searchQuery = '';
-  if (queryString) {
-    searchQuery = `&filterByFormula=SEARCH("${queryString}",+title)`;
-  }
-
-  console.log(`${url}?${sortQuery}${searchQuery}`);
-  return encodeURI(`${url}?${sortQuery}${searchQuery}`);
-}
+import TodoPage from './pages/TodoPage';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
+import Header from './shared/Header';
+import { useLocation, Routes, Route } from 'react-router';
+import { useEffect, useState } from 'react';
 function App() {
-  //const [todoList, setTodoList] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  //const [errorMessage, setErrorMessage] = useState('');
-  // const [isSaving, setIsSaving] = useState(false);
-  const [sortField, setSortField] = useState('createdTime');
-  const [sortDirection, setSortDirection] = useState('desc');
-  const [queryString, setQueryString] = useState('');
-  const [todoState, dispatch] = useReducer(todosReducer, initialTodoState);
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
-  const token = `Bearer ${import.meta.env.VITE_PAT}`;
-  //async function to fetch data from airtable
+  const [heading, setHeading] = useState('My Todo');
+  const location = useLocation();
   useEffect(() => {
-    const fetchTodos = async () => {
-      // setIsLoading(true);
-      dispatch({ type: todoActions.fetchTodos });
-      const options = {
-        method: 'GET',
-        headers: { Authorization: token },
-      };
-      try {
-        const resp = await fetch(
-          encodeUrl({ sortField, sortDirection, queryString }),
-          options
-        );
-        if (!resp.ok) {
-          throw new Error(resp.message);
-        }
+    switch (location.pathname.toLowerCase()) {
+      case '/':
+      case '/home':
+        document.title = 'My Todo';
+        setHeading('My Todo');
+        break;
 
-        const { records } = await resp.json();
+      case '/about':
+        document.title = 'About';
+        setHeading('About');
+        break;
 
-        //setTodoList(
-        // records.map((record) => {
-        // const todo = {
-        //  id: record.id,
-        //  ...record.fields,
-        // };
-        // if (!todo.isCompleted) {
-        //   todo.isCompleted = false;
-        // }
-        //  return { ...todo };
-        // })
-        // );
-        dispatch({ type: todoActions.loadTodos, records });
-        console.log('Successfully Retrived Records', records);
-      } catch (error) {
-        // setErrorMessage(error.message);
-        dispatch({
-          type: todoActions.setLoadError,
-          error: error.message || 'Something went wrong',
-        });
-      } finally {
-        // setIsLoading(false);
-        dispatch({ type: todoActions.endIsLoading });
-      }
-    };
-    fetchTodos();
-  }, [sortField, sortDirection, queryString]);
-
-  // function to add todo and update on Airtable using post method
-  const addTodo = async (newTodo) => {
-    const payload = {
-      records: [
-        {
-          fields: {
-            title: newTodo.title,
-            isCompleted: newTodo.isCompleted,
-          },
-        },
-      ],
-    };
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    };
-    try {
-      // setIsSaving(true);
-      dispatch({ type: todoActions.startRequest });
-      const resp = await fetch(
-        encodeUrl({ sortField, sortDirection, queryString }),
-        options
-      );
-      if (!resp.ok) {
-        throw new Error(resp.message);
-      }
-
-      const { records } = await resp.json();
-      //const savedTodo = {
-      //  id: records[0].id,
-      //   ...payload.records[0].fields,
-      //};
-      //if (!savedTodo.isCompleted) {
-      // savedTodo.isCompleted = false;
-      //}
-      //setTodoList([...todoList, savedTodo]);
-      dispatch({ type: todoActions.addTodo, records });
-    } catch (error) {
-      //setErrorMessage(error.message);
-      dispatch({
-        type: todoActions.setLoadError,
-        error: error.message || 'Something went wrong',
-      });
-    } finally {
-      //setIsSaving(false);
-      dispatch({ type: todoActions.endRequest });
+      default:
+        document.title = 'Not Found';
+        setHeading('Not Found');
+        break;
     }
-  };
-  //uses patch method to save changes in todo to airtable
-  const patchTodo = async (editedTodo) => {
-    const originalTodo = todoState.todoList.find(
-      (todo) => todo.id === editedTodo.id
-    ); //to revert to original todo if error occurs
-    //optimistically updating UI
-    //const updatedTodos = todoList.map((todo) => {
-    // if (todo.id === editedTodo.id) {
-    //   return { ...editedTodo };
-    // }
-    // return todo;
-    // });
-    // setTodoList(updatedTodos);
-    dispatch({ type: todoActions.patchTodo, editedTodo });
-    //setIsSaving(true);
-    dispatch({ type: todoActions.startRequest });
-    const payload = {
-      records: [
-        {
-          id: editedTodo.id,
-          fields: {
-            title: editedTodo.title,
-            isCompleted: editedTodo.isCompleted,
-          },
-        },
-      ],
-    };
-
-    const options = {
-      method: 'PATCH',
-      headers: {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    };
-
-    try {
-      const resp = await fetch(
-        encodeUrl({ sortField, sortDirection, queryString }),
-        options
-      );
-
-      if (!resp.ok) {
-        throw new Error(`${error.message}. Failed Fetching Todo...`);
-      }
-    } catch (error) {
-      //setErrorMessage(`${error.message}. Reverting Todo...`);
-      dispatch({
-        type: todoActions.setLoadError,
-        error: error.message || 'RevertingTodo...',
-      });
-      const revertedTodos = [...originalTodo];
-      //setTodoList(revertedTodos);
-      dispatch({ type: todoActions.revertTodo, revertedTodos });
-      console.log(error);
-
-      console.error(error);
-    } finally {
-      // setIsSaving(false);
-      dispatch({ type: todoActions.endRequest });
-    }
-  };
-
-  //function to check on completed task
-  const completeTodo = async (id) => {
-    const todoToComplete = todoState.todoList.find((todo) => todo.id === id);
-
-    if (!todoToComplete) return;
-
-    await patchTodo({ ...todoToComplete, isCompleted: true });
-  };
-
-  //function to update the edited todo
-  const updateTodo = async (editedTodo) => {
-    await patchTodo(editedTodo);
-  };
+  }, [location]);
 
   return (
-    <div className="body">
-      <img src={logo}></img>
-      <div className={styles.container}>
-        <div className={styles.item}>
-          <h1 className="heading">MY TODOS</h1>
-          <TodoForm onAddTodo={addTodo} isSaving={todoState.isSaving} />
-          <TodoList
-            todoList={todoState.todoList}
-            onCompleteTodo={completeTodo}
-            onUpdateTodo={updateTodo}
-            isLoading={todoState.isLoading}
-          />
-          <div className="sortContainer">
-            <hr />
-            <TodosViewForm
-              sortDirection={sortDirection}
-              setSortDirection={setSortDirection}
-              sortField={sortField}
-              setSortField={setSortField}
-              queryString={queryString}
-              setQueryString={setQueryString}
-            />
-          </div>
-        </div>
-        {todoState.errorMessage && (
-          <div className={styles.errormessage}>
-            <BiSolidError />
-            <p>{todoState.errorMessage} : Failed to fetch data..</p>
-            <button onClick={() => dispatch({ type: todoActions.clearError })}>
-              Dismiss
-            </button>
-          </div>
-        )}
+    <>
+      <Header heading={heading} />
+
+      <div className="body">
+        <Routes>
+          <Route path="/" element={<TodoPage />} />
+          <Route path="/home" element={<TodoPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/*" element={<NotFound />} />
+          <Route />
+        </Routes>
+
+        <footer>
+          <a href="https://icons8.com">Icons From Icons8</a>
+          <a href="https://www.freepik.com/free-vector/elegant-round-shape-modern-background-presentation_149280077.htm#fromView=keyword&page=3&position=0&uuid=02baa1fb-ffef-4bfa-bde7-84e849aa6dc0&query=Background">
+            Image by starline on Freepik
+          </a>
+        </footer>
       </div>
-      <footer>
-        <a href="https://icons8.com">Icons From Icons8</a>
-        <a href="https://www.freepik.com/free-vector/elegant-round-shape-modern-background-presentation_149280077.htm#fromView=keyword&page=3&position=0&uuid=02baa1fb-ffef-4bfa-bde7-84e849aa6dc0&query=Background">
-          Image by starline on Freepik
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
 
