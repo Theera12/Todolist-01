@@ -3,30 +3,26 @@ import TodoPage from './pages/TodoPage';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Header from './shared/Header';
+import Footer from './shared/Footer';
 import { useLocation, Routes, Route } from 'react-router';
 import { useEffect, useState } from 'react';
+
 function App() {
   const [heading, setHeading] = useState('My Todo');
   const location = useLocation();
+
   useEffect(() => {
-    switch (location.pathname.toLowerCase()) {
-      case '/':
-      case '/home':
-        document.title = 'My Todo';
-        setHeading('My Todo');
-        break;
+    const titleConfig = {
+      '/': 'My Todo',
+      '/home': 'My Todo',
+      '/about': 'About',
+    };
 
-      case '/about':
-        document.title = 'About';
-        setHeading('About');
-        break;
+    const title = titleConfig[location.pathname.toLowerCase()] || 'Not Found';
 
-      default:
-        document.title = 'Not Found';
-        setHeading('Not Found');
-        break;
-    }
-  }, [location]);
+    document.title = title;
+    setHeading(title);
+  }, [location.pathname]);
 
   return (
     <>
@@ -37,16 +33,10 @@ function App() {
           <Route path="/" element={<TodoPage />} />
           <Route path="/home" element={<TodoPage />} />
           <Route path="/about" element={<About />} />
-          <Route path="/*" element={<NotFound />} />
-          <Route />
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
-        <footer>
-          <a href="https://icons8.com">Icons From Icons8</a>
-          <a href="https://www.freepik.com/free-vector/elegant-round-shape-modern-background-presentation_149280077.htm#fromView=keyword&page=3&position=0&uuid=02baa1fb-ffef-4bfa-bde7-84e849aa6dc0&query=Background">
-            Image by starline on Freepik
-          </a>
-        </footer>
+        <Footer />
       </div>
     </>
   );
